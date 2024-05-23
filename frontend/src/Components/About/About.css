@@ -1,0 +1,39 @@
+.about-container {
+  padding: 20px;
+}
+
+.about-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.product-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* .product-item {
+  flex: 0 1 45%;
+  margin-bottom: 20px;
+} */
+
+.product-item img {
+  width: 100%;
+}
+
+.product-item p {
+  font-size: 14px;
+  line-height: 1.4;
+}

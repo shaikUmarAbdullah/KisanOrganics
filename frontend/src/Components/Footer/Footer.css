@@ -1,0 +1,124 @@
+@media(min-width:767px) {
+    .footer {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        background: rgb(22, 15, 17);
+    }
+
+    .footer-logo p {
+        color:white;
+        font-size: 45px;
+        font-weight: 500;
+    }
+
+    .footer-links {
+        display: flex;
+        list-style: none;
+        gap: 50px;
+        color:white;
+        font-size: 20px;
+    }
+
+    .footer-links li {
+        cursor: pointer;
+    }
+
+    .footer-icons {
+        display: flex;
+        gap: 20px;
+
+    }
+
+    .footer-copyright {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        width: 100%;
+        margin-bottom: 30px;
+        color: white;
+        font-size: 20px;
+    }
+
+    .footer-copyright hr {
+        width: 80%;
+        border: none;
+        border-radius: 10px;
+        height: 3px;
+        background: #c7c7c7;
+    }
+
+}
+
+@media(max-width:767px) {
+    .footer {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        margin-top: 7%;
+        background: rgb(41, 14, 14);
+    }
+
+    .footer-logo p {
+        color: hsl(60, 43%, 99%);
+        font-size: 30px;
+        font-weight: 500;
+    }
+
+    .footer-links {
+        display: flex;
+        list-style: none;
+        gap: 10px;
+        color: #f6faef;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .footer-links li {
+        cursor: pointer;
+    }
+
+    .footer-icons {
+        display: flex;
+        gap: 18px;
+
+    }
+
+    .footer-copyright {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 20px;
+        color: #f1ecec;
+        font-size: 10px;
+    }
+
+    .footer-copyright hr {
+        width: 80%;
+        border: none;
+        margin-top: 10px;
+        border-radius: 10px;
+        height: 3px;
+        background: #c7c7c7;
+    }
+}
+
+.icon {
+    border: 1px solid #000;
+    border-radius: 15%; /* for circular icons */
+    padding: 5px;
+    background-color: hsl(0, 43%, 99%);
+}
+.icon:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}

@@ -1,0 +1,173 @@
+.popular {
+  padding: 20px 0px;
+}
+
+.popular h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.product-grid-p {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f5f5dc9c;
+  overflow-x: auto;
+}
+
+.product-card {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+  transition: box-shadow 0.3s;
+  flex: 0 0 auto;
+  width: 275px;
+  /* Set a fixed width for each product card */
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 10px rgba(11, 238, 19, 0.941);
+}
+
+.product-image {
+  width: 100%;
+  /* Set width to fill the container */
+  height: 300px;
+  /* Set a fixed height for the image container */
+  overflow: hidden;
+  /* Hide any content overflow */
+  border-top-left-radius: 10px;
+  /* Maintain border radius */
+  border-top-right-radius: 10px;
+  padding-top: 5px;
+  /* Maintain border radius */
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+}
+
+.product-details {
+  padding: 15px;
+}
+
+.product-details h4 {
+  white-space: nowrap;
+  /* Prevent line breaks */
+  overflow: hidden;
+  /* Hide overflowing content */
+  text-overflow: ellipsis;
+  /* Show an ellipsis (...) when content is truncated */
+}
+
+.product-prices {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0px;
+  padding: 0px 5px;
+}
+
+.product-prices-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+}
+.new-price{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+}
+
+.add-to-cart {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart:hover {
+  background-color: #0056b3;
+}
+
+.product-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-link:hover {
+  text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .product-card {
+    width: 200px;
+    /* Adjust the width for smaller screens */
+  }
+
+  .product-image {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .product-card {
+    width: 200px;
+    /* Adjust the width for smaller screens */
+  }
+}
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 480px) {
+  .product-card {
+    border-radius: 8px;
+    width: 184px;
+    /* Adjust the width for smaller screens */
+  }
+
+  .product-details {
+    padding: 8px;
+  }
+
+  .product-details h4 {
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+  .add-to-cart {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+.product-link h4{
+  font-size: 1.1em;
+}

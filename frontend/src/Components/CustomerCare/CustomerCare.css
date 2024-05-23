@@ -1,0 +1,86 @@
+/* CustomerCare.css */
+.customer-care-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .customer-care-container h2 {
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+    background: linear-gradient(90deg, rgba(255, 123, 0, 1) 0%, rgba(255, 215, 0, 1) 100%);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: white;
+  }
+  
+  .common-queries,
+  .chat-option,
+  .call-option {
+    margin-bottom: 20px;
+  }
+  
+  .common-queries h3,
+  .chat-option h3,
+  .call-option h3 {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .common-queries ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .common-queries li {
+    margin-bottom: 10px;
+  }
+  
+  .chat-option form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-option textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: vertical;
+  }
+  
+  .chat-option button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .chat-option button:hover {
+    background-color: #0056b3;
+  }
+  
+  .call-option p {
+    margin-bottom: 10px;
+  }
+  
+  .call-option a {
+    font-size: 1.2rem;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .call-option a:hover {
+    text-decoration: underline;
+  }
+  

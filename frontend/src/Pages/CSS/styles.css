@@ -1,0 +1,329 @@
+/* Base styles */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  margin: 10px 0px;
+  border-radius: 10px;
+  background-image: url('./pexels-photo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.uploadContainer {
+  flex: 1;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+.resultContainer {
+  flex: 1;
+  background-color: #f0f0f0b8;
+  padding: 20px;
+  border-radius: 5px;
+}
+.resultContainer p{
+  font-size: 20px;
+}
+.selectedImageContainer {
+  margin-bottom: 20px;
+  display: none;
+}
+
+.input-section input[type="file"],
+.uploadButton {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgba(108, 237, 117, 0.775);
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+input{
+  color: #f0f0f0;
+}
+
+.errorText {
+  color: red;
+}
+
+/* Banner styles */
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #d2fcc66b;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+
+.bannerText {
+  flex: 1;
+  order: 2;
+  text-align: center;
+}
+
+.bannerImage {
+  width: 300px;
+  height: auto;
+  border-radius: 5px;
+  order: 1;
+}
+
+.bannerText h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.bannerText p {
+  font-size: 18px;
+  color: #666;
+}
+.videosection {
+  display: flex;
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: #f0f0f0b8;
+  padding: 20px;
+  margin: 10px 0px;
+  border-radius: 10px;
+}
+.videoContainer {
+  flex: 0.5;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.videoContainer video {
+  width: 100%; /* Ensure the video fills its container */
+  border-radius: 10px; /* Add border-radius for rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+}
+
+.instructions {
+  flex: 1;
+  padding: 20px;
+  border-radius: 5px;/* Centering items horizontally */
+}
+
+.instructions h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.instructions p {
+  font-size: 18px;
+  color: #666;
+  
+}
+
+
+/* Info Container Styles */
+.infocontainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #00ffff33;
+}
+
+.infocontainer h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.infocontainer p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.infocontainer p:last-child {
+  margin-bottom: 0;
+}
+
+.preductionbutton{
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Padding */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Cursor style */
+  transition: background-color 0.3s ease;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    margin-top: 10px;
+  }
+
+  .selectedImageContainer img {
+    width: 100%;
+  }
+
+  .bannerText h1 {
+    font-size: 16px;
+  }
+  .bannerImage{
+    width: 170px;
+  }
+
+  .bannerText p {
+    font-size: 13px;
+  }
+
+  .videosection{
+    padding: 10px;
+  }
+
+  .videoContainer {
+    flex: 1;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+
+  .instructions {
+    padding: 5px;
+    border-radius: 5px;/* Centering items horizontally */
+  }
+
+  .instructions h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .instructions p {
+    font-size: 15px;
+    color: #666;
+    margin: 0px;
+    padding-left: 7px;
+  }
+  .instructions img{
+    display:none;
+  }
+
+  .infocontainer {
+    padding: 10px;
+  }
+
+  .infocontainer h1 {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .infocontainer p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 769px) {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .selectedImageContainer {
+    display: block;
+    width: 45%;
+    margin: 20px;
+  }
+
+  .selectedImageContainer img{
+    width: 110%;
+  }
+
+  .background-overlay {
+    flex: 1;
+    margin-right: 20px;
+  }
+
+  .input-section {
+    text-align: left;
+  }
+
+}
+
+@media (min-width: 1440px){
+  .infocontainer{
+    max-width: none;
+    height: 400px;
+  }
+  .infocontainer h1{
+    font-size: 40px;
+    text-align: center;
+  }
+  .infocontainer p{
+    font-size: 30px;
+    text-align: center;
+    padding: 25px 300px;
+  }
+  .banner{
+    justify-content: center;
+    height: 356px;
+  }
+  .bannerText{
+    flex: none;
+    margin-left: 70px;
+  }
+  .bannerText h1{
+    font-size: 58px;
+  }
+  .bannerText p{
+    font-size: 25px;
+  }
+  .bannerImage{
+    width: 438px;
+  }
+  .videosection{
+    justify-content: center;
+  }
+  .videoContainer{
+    flex: none;
+  }
+  .instructions h1{
+    font-size: 43px;
+  }
+  .instructions p{
+    font-size: 50px;
+  }
+  .container{
+    height: auto;
+  }
+  .uploadContainer{
+    margin: 40px 100px;
+  }
+  .uploadContainer input{
+    font-size: 40px;
+  }
+  .uploadButton{
+    border-radius: 20px;
+    padding: 17px;
+    font-size: 36px;
+  }
+  .resultContainer h2{
+    font-size: 4rem;
+  }
+  .resultContainer p{
+    font-size: 40px;
+  }
+  .preductionbutton{
+    font-size: 36px;
+    
+  }
+  .instructions img{
+    width: 350px;
+    height: auto;
+  }
+  .think{
+    flex:1;
+    display:flex;
+  }
+}
+
+

@@ -1,0 +1,124 @@
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .username {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  
+  .email {
+    color: #666;
+  }
+  
+  .profile-menu {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .menu-item {
+    display: block;
+    width: 100%;
+    background-color: #f9f9f9;
+    border: none;
+    text-align: justify;
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menu-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .menu-item.active {
+    background-color: #ccc;
+  }
+  
+  
+  .profile-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info-section {
+    margin-bottom: 20px;
+  }
+  
+  .info-section h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  
+  .info-section p {
+    margin-bottom: 5px;
+  }
+  
+
+  .edit-profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: black;
+}
+
+.edit-profile-container button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-profile-container button:hover {
+  background: #0056b3;
+}

@@ -1,0 +1,138 @@
+@media(min-width:768px) {
+    .product {
+        display: flex;
+        margin: 50px 170px;
+    }
+
+    .product-left {
+        display: flex;
+        gap: 17px;
+    }
+
+    .product-img-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .product-img-list img {
+        height: 163px;
+    }
+
+    .product-main-img {
+        width: 586px;
+        height: 700px;
+    }
+
+    .product-right {
+        margin: 0px 70px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-right h1 {
+        color: #3d3d3d;
+        font-size: 40px;
+        font-weight: 700;
+    }
+
+    .product-right-star {
+        display: flex;
+        align-items: center;
+        margin-top: 13px;
+        gap: 5px;
+        color: #1c1c1c;
+        font-size: 16px;
+    }
+
+    .product-right-prices {
+        display: flex;
+        margin: 40px 0px;
+        gap: 30px;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .product-old {
+        color: #818181;
+        text-decoration: line-through;
+    }
+
+    .product-new {
+        color: #ff4141;
+    }
+
+    .product-right button {
+        padding: 20px 40px;
+        width: 200px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background: #ff4141;
+        margin-bottom: 40px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .product-quantity button{
+        padding: 10px;
+        width: 40px;
+        margin: 20px;
+        background: #1c1c1c;
+    }
+}
+
+@media (min-width:200px) and (max-width:767px) {
+    .product {
+        margin: 5px;
+    }
+
+    .product-img-list {
+        display: none;
+    }
+
+    .product-main-img {
+        width: 330px;
+        height: 400px;
+    }
+    .product-right h1 {
+        color: #3d3d3d;
+        font-size: 30px;
+        font-weight: 700;
+    }
+    .product-right-star {
+        display: flex;
+        align-items: center;
+        margin-top: 7px;
+        gap: 5px;
+        color: #1c1c1c;
+        font-size: 16px;
+    }
+    .product-old {
+        color: #818181;
+        text-decoration: line-through;
+    }
+
+    .product-new {
+        color: #ff4141;
+    }
+    .product-right button {
+        padding: 20px 40px;
+        width: 200px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background: #ff4141;
+        margin-bottom: 40px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .product-quantity button{
+        padding: 0px;
+        width: 30px;
+        margin: 10px;
+        background: #1c1c1c;
+    }
+}
+

@@ -1,0 +1,43 @@
+.banner-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 25px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .avatar-container {
+    margin-right: 10px;
+  }
+  
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .content-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .button-container {
+    margin-top: 10px;
+  }
+  
+  .support-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .support-button:hover {
+    background-color: #0056b3;
+  }
+  

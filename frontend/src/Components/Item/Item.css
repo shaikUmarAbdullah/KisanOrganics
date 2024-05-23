@@ -1,0 +1,41 @@
+.item {
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+}
+
+.item-left img {
+    width: 150px;
+    padding: 5px;
+}
+
+.item-right {
+    padding: 5px;
+    height: 100px;
+}
+
+.item-right h3 {
+    width: 200px;
+    height: 100px;
+}
+
+.item-right button {
+    padding: 10px 20px;
+    width: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    background: #ff4141;
+    float: inline-end;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.old-price{
+    text-decoration: line-through;
+}
+
+.new-price{
+    color: #ff4141;
+}
