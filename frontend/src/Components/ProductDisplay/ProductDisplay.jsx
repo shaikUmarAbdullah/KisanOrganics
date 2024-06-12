@@ -12,6 +12,7 @@ const ProductDisplay = (props) => {
     const { product } = props;
     const { addToCart, userID } = useContext(ShopContext);
     const [quantity, setQuantity] = useState(1);
+    const [showFullDescription, setShowFullDescription] = useState(false);
 
     console.log(product._id);
 
@@ -29,36 +30,40 @@ const ProductDisplay = (props) => {
         return <Typography variant="h6">Product not found</Typography>;
     }
 
+    const toggleDescription = () => {
+        setShowFullDescription(!showFullDescription);
+    };
+
     return (
-        <div className='productD'>
+        <div className='productD-container'>
             <div className="product-left">
-                <div className="product-img-list">
+                
                     <img src={`http://localhost:${port}/upload/images/${product.image}`} alt='' />
                     <img src={`http://localhost:${port}/upload/images/${product.image}`} alt='' />
                     <img src={`http://localhost:${port}/upload/images/${product.image}`} alt='' />
                     <img src={`http://localhost:${port}/upload/images/${product.image}`} alt='' />
-                </div>
-                <div className="product-img">
-                    <img className='product-main-img' src={`http://localhost:${port}/upload/images/${product.image}`} alt='' />
-                </div>
+                
             </div>
-            <div className="product-right">
+            <div className="product-rightD">
                 <h1>{product.name}</h1>
-                <div className="product-right-star">
+                {/* <div className="product-right-star">
                     <img src={star_icon} alt='' />
                     <img src={star_icon} alt='' />
                     <img src={star_icon} alt='' />
                     <img src={star_icon} alt='' />
                     <img src={star_dull_icon} alt='' />
                     <p>(122)</p>
-                </div>
+                </div> */}
                 <div className="product-right-prices">
                     <div className="product-old"><CurrencyRupeeIcon fontSize="small"/>{product.old_price}</div>
                     <div className="product-new"><CurrencyRupeeIcon fontSize="small"/>{product.new_price}</div>
                 </div>
-                <div className="product-des">
+                <div className={`product-des ${showFullDescription ? 'full' : 'limited'}`}>
                     {product.description}
                 </div>
+                <button className="show-more-btn" onClick={toggleDescription}>
+                    {showFullDescription ? 'Show less' : 'Show more'}
+                </button>
                 <div className="product-quantity">
                     <h1>Select Quantity</h1>
                     <Box>
@@ -68,7 +73,7 @@ const ProductDisplay = (props) => {
                     </Box>
                 </div>
                 
-                <button onClick={() => { addToCart(product._id, quantity) }}>ADD TO CART</button>
+                <button className='cartD' onClick={() => { addToCart(product._id, quantity) }}>ADD TO CART</button>
             </div>
         </div>
     );

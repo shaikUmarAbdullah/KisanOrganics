@@ -14,6 +14,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Category from './Pages/Category';
 import Profile from './Components/Profile/Profile';
 import CustomerCare from './Components/CustomerCare/CustomerCare';
+import Breadcrumb from './Components/Breadcrumb/Breadcrumb';
+import BlogCollectionPage from './Components/BlogCollectionPage/BlogCollectionPage';
+import BlogPage from './Pages/BlogPage';
 
 function App() {
   return (
@@ -21,6 +24,7 @@ function App() {
       <Router>
         <Header/>
         <Navbar />
+        <Breadcrumb/>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/profile/:userId' element={<Profile />} />
@@ -33,9 +37,11 @@ function App() {
           <Route path='/powder' element={<Category cat="powder"/>} />
           <Route path='/about' element={<Aboutus />} />
           <Route path='/product/:productId' element={<Product />}/>
+          <Route path='/blogs/:BlogId' element={<BlogPage/>}/>
           <Route path='/cart' element={<Cart />} />
           <Route path='/customercare' element={<CustomerCare />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/blogs' element={<BlogCollectionPage />} />
         </Routes>
         <Footer />
       </Router>

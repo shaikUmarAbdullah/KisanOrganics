@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import './Header.css'; // Import your CSS file for header styles
 import companylogo from '../Assets/Features/companylogo.png';
 import PersonIcon from '@mui/icons-material/Person';
+import { ShopContext } from '../Context/ShopContext';
 
 const Header = () => {
+  const {cart} = useContext(ShopContext);
   const [showDropdown, setShowDropdown] = useState(false);
   const userid = localStorage.getItem('userid');
 
@@ -24,6 +26,10 @@ const Header = () => {
   const handlebutton = () => {
     setShowDropdown(false);
   };
+
+  const totalCartItems = cart.items.reduce((total, item) => total + item.quantity, 0);
+
+
   return (
     <header className="header">
       <div className="logo-container">
@@ -32,10 +38,10 @@ const Header = () => {
       </div>
       <div className="menu-container">
         <Link to="/cart">
-          <button className="menu-button">
-            <FontAwesomeIcon icon={faShoppingCart} />
-            {/* <span className="cart-count">0</span> */}
-          </button>
+        <div className="cart-count-container">
+            <FontAwesomeIcon icon={faShoppingCart} className="menu-button" />
+            <span className="cart-count">{totalCartItems}</span>
+          </div>
         </Link>
         {localStorage.getItem('auth-token') ? (
           <div className="user-dropdown-container">

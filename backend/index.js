@@ -79,6 +79,69 @@ const Product = mongoose.model("Product", {
 })
 
 
+const BlogSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  info: [{ type: String, required: true }],
+  usageInstructions: [{ type: String, required: true }],
+  relatedVideos: [{ type: String }], // Array of video URLs
+  images: [{ type: String, required: true }], // Array of image URLs
+  coverPic: { type: String, required: true }, // Cover image URL
+  bulletPoints: [{ type: String, required: true }], // Array of bullet points
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the user who created the blog
+});
+
+BlogSchema.pre('save', function (next) {
+  this.updatedAt = Date.now();
+  next();
+});
+
+const Blog = mongoose.model('Blog', BlogSchema);
+
+// Endpoint to create a new blog
+app.post('/blogs/create', async (req, res) => {
+    const { name, info, usageInstructions, relatedVideos, images,coverPic,bulletPoints, authorId } = req.body;
+  
+    if (!name || !info || !usageInstructions || !images ||!coverPic ||!bulletPoints || !authorId) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+  
+    try {
+      const author = await User.findById(authorId);
+      if (!author) {
+        return res.status(404).json({ message: 'Author not found' });
+      }
+  
+      const newBlog = new Blog({
+        name,
+        info,
+        usageInstructions,
+        relatedVideos,
+        images,
+        coverPic,
+        bulletPoints,
+        author: authorId,
+      });
+  
+      const savedBlog = await newBlog.save();
+      res.status(201).json(savedBlog);
+    } catch (error) {
+      console.error('Error creating blog:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+app.get('/blogs', async (req, res) => {
+    try {
+      const blogs = await Blog.find();
+      res.json(blogs);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching blogs', error });
+    }
+  });
+
+
 //API for adding Products
 app.post('/addproduct', async (req, res) => {
     let products = await Product.find({});

@@ -1,0 +1,49 @@
+.search-container {
+  position: relative;
+}
+
+/* SearchComponent.css */
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 5px); /* Position below search bar */
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1; /* Ensure search results are above other content */
+  max-height: 200px; /* Limit height of search results */
+  overflow-y: auto; /* Add scroll bar for overflow */
+}
+
+.search-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc; /* Add border to separate items */
+}
+
+.search-item:last-child {
+  border-bottom: none; /* Remove border from last item */
+}
+
+.search-item:hover {
+  background-color: #f0f0f0;
+}
+
+.search-item h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333; /* Adjust text color */
+}
+
+.search-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-item a:hover {
+  text-decoration: underline;
+}
+

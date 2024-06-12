@@ -10,6 +10,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import BusinessIcon from '@mui/icons-material/Business';
 import { ShopContext } from '../Context/ShopContext';
+import SearchBar from '../SearchBar/SearchBar';
+import SearchComponent from '../SearchComponent/SearchComponent';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import MedicationIcon from '@mui/icons-material/Medication';
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -29,10 +33,12 @@ const Navbar = () => {
       setActiveMenuItem('item1');
     } else if (path === '/all') {
       setActiveMenuItem('item2');
-    } else if (path === '/about') {
+    } else if (path === '/blogs') {
       setActiveMenuItem('item3');
     }  else if (path === '/cropcare') {
       setActiveMenuItem('item4');
+    }  else if (path === '/about') {
+      setActiveMenuItem('item5');
     }
     // Add more conditions for other pages if needed
   }, [location.pathname]);
@@ -76,13 +82,7 @@ const Navbar = () => {
     <div className="menu-btn" onClick={handleToggleSidebar}>
       <MenuIcon className='nav-icon' style={{ fontSize: 35 }} />
     </div>
-    <div className="search-bar-m">
-    <input
-        type="text"
-        placeholder="Search..."
-      />
-      <button ><SearchIcon /></button>
-      </div>
+    <SearchComponent/>
   </div>
   <div className={`sidebar ${isSidebarOpen ? 'show' : ''}`}>
     <div className="sidebar-header" onClick={handleSidebarClose}>
@@ -101,7 +101,7 @@ const Navbar = () => {
       className={activeMenuItem === 'item4' ? 'active' : ''}
       onClick={() => handleMenuItemClick('item4')}
     >
-      <HomeIcon />CropCare
+      <MedicationIcon />CropCare
     </a>
 
     {/* All Products dropdown */}
@@ -129,9 +129,18 @@ const Navbar = () => {
       </div>
     </div>
     <a
-      href="/about"
+      href="/blogs"
       className={activeMenuItem === 'item3' ? 'active' : ''}
       onClick={() => handleMenuItemClick('item3')}
+    >
+      <LibraryBooksIcon /> Blogs
+    </a>
+
+
+    <a
+      href="/about"
+      className={activeMenuItem === 'item5' ? 'active' : ''}
+      onClick={() => handleMenuItemClick('item5')}
     >
       <BusinessIcon /> About Us
     </a>

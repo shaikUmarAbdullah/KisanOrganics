@@ -10,6 +10,7 @@ const ShopContextProvider = (props) => {
   const [userId, setUserId] = useState('');
   const [preResult, setPreResult] = useState(null);
   const [userdetails, setuserdetails] = useState(null);
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     // Fetch products
@@ -29,7 +30,18 @@ const ShopContextProvider = (props) => {
     }
   }, []);
   
-  
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const fetchBlogs = async () => {
+    try {
+      const response = await axios.get("/blogs");
+      setBlogs(response.data);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    }
+  };
   
   useEffect(() => {
     // Fetch cart data whenever userId changes
@@ -108,7 +120,7 @@ const ShopContextProvider = (props) => {
   }, [cart, products]);
 
   // Pass userId to children components through context
-  const contextValue = { products, addToCart, removeFromCart, updateCartItemQuantity, cart, userId, setUserIdAndUpdateCart, setPreResult, preResult };
+  const contextValue = { products, addToCart, removeFromCart, updateCartItemQuantity, cart, userId, setUserIdAndUpdateCart, setPreResult, preResult,blogs };
 
   return (
     <ShopContext.Provider value={contextValue}>

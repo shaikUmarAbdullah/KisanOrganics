@@ -80,7 +80,7 @@ const ImageUpload = () => {
         </div>
       </div>
 
-      <div className="container">
+      <div className="U-container">
         <div className="uploadContainer">
           <input type="file" onChange={handleFileChange} style={{ marginBottom: '10px' }} />
           <button onClick={handleUpload} className="uploadButton">
@@ -124,9 +124,9 @@ const ImageUpload = () => {
       {uploadComplete && predictionResult && predictionResult.disease_info && (
         console.log('predictionResult:', predictionResult),
         console.log('predictionResult.disease_info.product:', predictionResult && predictionResult.disease_info && predictionResult.disease_info.product),
-        <Recproducts cat={predictionResult.disease_info.product} />,<CustomerSupportBanner/>
+        <Recproducts cat={predictionResult.disease_info.product} />
       )}
-
+      <CustomerSupportBanner/>
 
 
 
