@@ -12,7 +12,6 @@ const Profile = () => {
     username: '',
     email: '',
     name: '',
-    address: '',
     phone: ''
   });
 
@@ -135,15 +134,6 @@ const Profile = () => {
                     type="text"
                     name="name"
                     value={user.name}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Address</label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={user.address}
                     onChange={handleChange}
                   />
                 </div>

@@ -10,24 +10,21 @@ const Signin = () => {
     password: "",
     email: "",
     name: "",
-    address: "",
     phone: ""
   });
   const [error, setError] = useState(null);
-  const [isChecked, setIsChecked] = useState(false); // State to track checkbox status
+  const [isChecked, setIsChecked] = useState(false);
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const validateEmail = (email) => {
-    // Regular expression for email validation
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
 
   const login = async () => {
-    // Validate email format before submitting
     if (!validateEmail(formData.email)) {
       setError("Invalid email format");
       return;
@@ -38,10 +35,9 @@ const Signin = () => {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'auth-token': localStorage.getItem('auth-token')
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
       });
 
       if (!response.ok) {
@@ -64,11 +60,11 @@ const Signin = () => {
       }
     } catch (error) {
       console.error('An error occurred during login:', error);
+      setError('Internal server error');
     }
   };
 
   const signup = async () => {
-    // Validate email format before submitting
     if (!validateEmail(formData.email)) {
       setError("Invalid email format");
       return;
@@ -79,8 +75,7 @@ const Signin = () => {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'auth-token': localStorage.getItem('auth-token')
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData),
       });
@@ -97,6 +92,7 @@ const Signin = () => {
         localStorage.setItem('auth-token', responseData.token);
         const userId = responseData.userId;
         setUserIdAndUpdateCart(userId);
+        localStorage.setItem('userid', userId);
         console.log(`Logged in successfully! User ID is ${userId}`);
         window.location.replace('/');
       } else {
@@ -104,11 +100,12 @@ const Signin = () => {
       }
     } catch (error) {
       console.error('An error occurred during signup:', error);
+      setError('Internal server error');
     }
   };
 
   const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked); // Update checkbox state
+    setIsChecked(e.target.checked);
   };
 
   return (
@@ -116,24 +113,26 @@ const Signin = () => {
       <div className="signin-container">
         <h1>{state}</h1>
         <div className="signin-fields">
-          {state === "Sign Up" ? <input name='name' value={formData.name} onChange={changeHandler} type='text' placeholder='Your Name' /> : <></>}
-          {state === "Sign Up" ? <input name='username' value={formData.username} onChange={changeHandler} type='text' placeholder='Username' /> : <></>}
+          {state === "Sign Up" && <input name='name' value={formData.name} onChange={changeHandler} type='text' placeholder='Your Name' />}
+          {state === "Sign Up" && <input name='username' value={formData.username} onChange={changeHandler} type='text' placeholder='Username' />}
           <input name='email' value={formData.email} onChange={changeHandler} type='email' placeholder='Email Address' />
           <input name='password' value={formData.password} onChange={changeHandler} type="password" placeholder='Password' />
-          {state === "Sign Up" ? <input name='address' value={formData.address} onChange={changeHandler} type='text' placeholder='Address' /> : <></>}
-          {state === "Sign Up" ? <input name='phone' value={formData.phone} onChange={changeHandler} type='text' placeholder='Phone Number' /> : <></>}
+          {state === "Sign Up" && <input name='phone' value={formData.phone} onChange={changeHandler} type='text' placeholder='Phone Number' />}
         </div>
-        <button onClick={() => { state === "Log In" ? login() : signup() }} disabled={state === "Sign Up" && !isChecked}>Continue</button> {/* Disable button if in signup mode and checkbox not checked */}
+        <button onClick={() => { state === "Log In" ? login() : signup() }} disabled={state === "Sign Up" && !isChecked}>Continue</button>
         {error && <p className="error-message">{error}</p>}
-        {state === "Sign Up"
-          ? <>
-              <div className="signin-agree">
-                <input type='checkbox' name='' id='' checked={isChecked} onChange={handleCheckboxChange} />
-                <p>By continuing, I agree to terms of use & privacy policies</p>
-              </div>
-            </>
-          : <></>}
-        <p className='signin-in'>{state === "Sign Up" ? 'Already have an account?' : 'Create an account?'}<span onClick={() => { setState(state === "Sign Up" ? "Log In" : "Sign Up") }}>{state === "Sign Up" ? 'Login here' : 'Click here'}</span></p>
+        {state === "Sign Up" && (
+          <div className="signin-agree">
+            <input type='checkbox' checked={isChecked} onChange={handleCheckboxChange} />
+            <p>By continuing, I agree to terms of use & privacy policies</p>
+          </div>
+        )}
+        <p className='signin-in'>
+          {state === "Sign Up" ? 'Already have an account?' : 'Create an account?'}
+          <span onClick={() => setState(state === "Sign Up" ? "Log In" : "Sign Up")}>
+            {state === "Sign Up" ? 'Login here' : 'Click here'}
+          </span>
+        </p>
       </div>
     </div>
   );

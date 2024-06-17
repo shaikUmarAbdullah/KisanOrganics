@@ -2,8 +2,10 @@ const port = 4000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+
 const path = require("path");
 const cors = require("cors");
 const { error } = require("console");
@@ -190,17 +192,174 @@ app.get('/allproducts', async (req, res) => {
 
 
 //schema for user model
-const UserSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    address: { type: String },
-    phone: { type: String },
-    created_at: { type: Date, default: Date.now }
+
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+
+const userSchema = new Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  phone: { type: String, required: true },
+  addresses: [{ type: Schema.Types.ObjectId, ref: 'Address' }],
+  orderHistory: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
+  emailVerified: { type: Boolean, default: false },
+  phoneVerified: { type: Boolean, default: false },
+  emailVerificationCode: String,
+  emailVerificationExpiry: Date,
+  phoneVerificationCode: String,
+  phoneVerificationExpiry: Date,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
-const User = mongoose.model('User', UserSchema);
+// Hash password before saving
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Generate reset token
+userSchema.methods.generateResetToken = function() {
+  const resetToken = crypto.randomBytes(20).toString('hex');
+  this.resetPasswordToken = resetToken;
+  this.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+  return resetToken;
+};
+
+const User = mongoose.model('User', userSchema);
+
+
+app.post('/signup', async (req, res) => {
+    try {
+        // Check if the email already exists
+        let check = await User.findOne({ email: req.body.email });
+        if (check) {
+            return res.status(400).json({ success: false, errors: "Existing Email" });
+        }
+
+        // Create a new user instance
+        const user = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+            name: req.body.name,
+            phone: req.body.phone
+        });
+
+        // Hash the password before saving
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+
+        // Save the user to the database
+        await user.save();
+
+        // Generate a JWT token
+        const token = jwt.sign({ userId: user._id }, 'secret_ecom', { expiresIn: '1h' });
+
+        // Respond with the user data and token
+        res.json({ success: true, token, userId: user._id });
+    } catch (error) {
+        console.error('Error signing up user:', error);
+        res.status(500).json({ success: false, error: 'Internal server error' });
+    }
+});
+
+
+// API for user login
+app.post('/login', async (req, res) => {
+    try {
+        let user = await User.findOne({ email: req.body.email });
+        if (user) {
+            const passCompare = await bcrypt.compare(req.body.password, user.password);
+            if (passCompare) {
+                const token = jwt.sign({ userId: user._id }, 'secret_ecom', { expiresIn: '1h' });
+                res.json({ success: true, token, userId: user._id });
+            } else {
+                res.json({ success: false, errors: "Wrong Password" });
+            }
+        } else {
+            res.json({ success: false, errors: "Wrong Email" });
+        }
+    } catch (error) {
+        console.error('Error logging in user:', error);
+        res.status(500).json({ success: false, error: 'Internal server error' });
+    }
+});
+
+// Route to get user details by ID
+app.get('/user/:id', async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId).populate('addresses orderHistory');
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json(user);
+    } catch (err) {
+        console.error('Error fetching user details:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Update user profile
+app.put('/user/:id', async (req, res) => {
+    const { name, email, phone } = req.body;
+    try {
+        let user = await User.findById(req.params.id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        user.name = name || user.name;
+        user.email = email || user.email;
+        user.phone = phone || user.phone;
+
+        await user.save();
+        res.json(user);
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+const addressSchema = new Schema({
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zipCode: { type: String, required: true },
+    country: { type: String, required: true }
+  });
+  
+ const Address = mongoose.model('Address', addressSchema);
+
+const orderSchema = new Schema({
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    products: [
+      {
+        productId: { type: Schema.Types.ObjectId, ref: 'Product' },
+        quantity: { type: Number, required: true },
+        price: { type: Number, required: true }
+      }
+    ],
+    totalAmount: { type: Number, required: true },
+    orderDate: { type: Date, default: Date.now },
+    status: { type: String, default: 'Pending' }
+  });
+  
+const Order = mongoose.model('Order', orderSchema);
+  
 
 
 
@@ -219,108 +378,11 @@ const CartSchema = new mongoose.Schema({
 const Cart = mongoose.model('Cart', CartSchema);
 
 
-//Schema For Order History
-const OrderItemSchema = new mongoose.Schema({
-    product_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
-    quantity: { type: Number, required: true },
-    price: { type: Number, required: true }
-});
-
-const OrderSchema = new mongoose.Schema({
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    items: [OrderItemSchema],
-    total_price: { type: Number, required: true },
-    created_at: { type: Date, default: Date.now },
-    status: { type: String, required: true, default: 'Pending' }
-});
-
-const Order = mongoose.model('Order', OrderSchema);
 
 
 
 
 
-app.post('/signup', async (req, res) => {
-    try {
-        let check = await User.findOne({ email: req.body.email });
-        if (check) {
-            return res.status(400).json({ success: false, errors: "Existing Email" });
-        }
-        const user = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            name: req.body.name,
-            address: req.body.address,
-            phone: req.body.phone
-        });
-
-        await user.save();
-        const token = jwt.sign({ userId: user._id }, 'secret_ecom');
-        res.json({ success: true, token, userId: user._id });
-    } catch (error) {
-        console.error('Error signing up user:', error);
-        res.status(500).json({ success: false, error: 'Internal server error' });
-    }
-});
-
-// API for user login
-app.post('/login', async (req, res) => {
-    try {
-        let user = await User.findOne({ email: req.body.email });
-        if (user) {
-            const passCompare = req.body.password === user.password;
-            if (passCompare) {
-                const token = jwt.sign({ userId: user._id }, 'secret_ecom');
-                res.json({ success: true, token, userId: user._id });
-            } else {
-                res.json({ success: false, errors: "Wrong Password" });
-            }
-        } else {
-            res.json({ success: false, errors: "Wrong Email" });
-        }
-    } catch (error) {
-        console.error('Error logging in user:', error);
-        res.status(500).json({ success: false, error: 'Internal server error' });
-    }
-});
-
-
-// Route to get user details by ID
-app.get('/user/:id', async (req, res) => {
-    try {
-        const userId = req.params.id;
-        const user = await User.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        res.json(user);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
-// Update user profile
-app.put('/user/:id', async (req, res) => {
-    const { username, email, name, address, phone } = req.body;
-    try {
-      let user = await User.findById(req.params.id);
-      if (!user) return res.status(404).json({ message: 'User not found' });
-  
-      user.username = username || user.username;
-      user.email = email || user.email;
-      user.name = name || user.name;
-      user.address = address || user.address;
-      user.phone = phone || user.phone;
-  
-      await user.save();
-      res.json(user);
-    } catch (error) {
-      res.status(500).json({ error: 'Server error' });
-    }
-  });
 
 
 // API endpoint for viewing a single product
